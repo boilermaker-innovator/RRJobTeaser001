@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ready Resources - Boilermaker/Metal Sheet Fabricator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f3f2ef;
+        }
+        .job-teaser {
+            width: 400px;
+            height: 220px;
+            margin: 0 auto;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            position: relative;
+        }
+        .header {
+            background-color: #0077b5;
+            color: white;
+            padding: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .logo {
+            width: 50px;
+            height: auto;
+        }
+        .job-title {
+            font-size: 0.85em;
+            margin: 0;
+            flex-grow: 1;
+            text-align: center;
+            padding: 0 5px;
+        }
+        .content {
+            padding: 5px;
+            height: calc(100% - 35px);
+            overflow: hidden;
+        }
+        .section {
+            opacity: 0;
+            transition: opacity 0.2s ease-in-out;
+            position: absolute;
+            width: calc(100% - 10px);
+            height: calc(100% - 40px);
+            display: flex;
+            flex-direction: column;
+        }
+        .section.active {
+            opacity: 1;
+        }
+        h2 {
+            color: #0077b5;
+            margin: 0 0 2px 0;
+            font-size: 0.9em;
+            text-decoration: underline;
+        }
+        ul {
+            padding-left: 15px;
+            margin: 0;
+            flex-grow: 1;
+        }
+        li {
+            margin-bottom: 1px;
+            font-size: 0.75em;
+            line-height: 1.2;
+        }
+        .apply-button {
+            display: block;
+            width: calc(100% - 10px);
+            padding: 6px;
+            background-color: #0077b5;
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            font-weight: bold;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            position: absolute;
+            bottom: 2px;
+            left: 5px;
+            font-size: 0.75em;
+        }
+        .apply-button:hover {
+            background-color: #005582;
+        }
+        .progress-bar {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            height: 2px;
+            background-color: #0077b5;
+            width: 0%;
+            transition: width 0.2s linear;
+        }
+    </style>
+</head>
+<body>
+    <div class="job-teaser">
+        <div class="header">
+            <img src="https://imgur.com/LFzVNWx.png" alt="Ready Resources Logo" class="logo">
+            <h1 class="job-title">Boilermaker/Metal Sheet Fabricator - Pilbara, WA</h1>
+        </div>
+        <div class="content">
+            <div class="section" id="section1">
+                <h2>Job Overview</h2>
+                <ul>
+                    <li>FIFO (8/6 roster) | 3+ years post-trade experience</li>
+                    <li>Competitive pay | Accommodation provided</li>
+                    <li>Career growth | Employee assistance programs</li>
+                    <li>Supportive team | Immediate start available</li>
+                </ul>
+            </div>
+            <div class="section" id="section2">
+                <h2>Key Responsibilities</h2>
+                <ul>
+                    <li>Install, maintain, repair fixed plant equipment</li>
+                    <li>Operate welding equipment and power tools</li>
+                    <li>Read and interpret technical drawings</li>
+                    <li>Ensure compliance with safety standards</li>
+                    <li>Collaborate with cross-functional teams</li>
+                </ul>
+            </div>
+            <div class="section" id="section3">
+                <h2>Requirements</h2>
+                <ul>
+                    <li>Cert III in Engineering - Fabrication Trade</li>
+                    <li>Current Australian C class driver's license</li>
+                    <li>Experience with major OEMs (Hitachi, Komatsu)</li>
+                    <li>Strong problem-solving and communication skills</li>
+                    <li>Flexibility to work in various environments</li>
+                </ul>
+            </div>
+            <div class="section" id="section4">
+                <h2>Why Join Ready Resources?</h2>
+                <ul>
+                    <li>Industry-leading projects and clients</li>
+                    <li>Ongoing training and development opportunities</li>
+                    <li>Competitive salary packages and bonuses</li>
+                    <li>Strong focus on work-life balance</li>
+                    <li>Be part of a growing, dynamic organization</li>
+                </ul>
+            </div>
+        </div>
+        <a href="https://www.seek.com.au/job/78531501" class="apply-button" target="_blank">Apply Now - Join Our Expert Team Today!</a>
+        <div class="progress-bar" id="progressBar"></div>
+    </div>
+
+    <script>
+        const sections = document.querySelectorAll('.section');
+        const progressBar = document.getElementById('progressBar');
+        let currentSection = 0;
+        const duration = 1000; // 1 second per section
+
+        function showSection(index) {
+            sections.forEach((section, i) => {
+                if (i === index) {
+                    section.classList.add('active');
+                } else {
+                    section.classList.remove('active');
+                }
+            });
+        }
+
+        function nextSection() {
+            currentSection = (currentSection + 1) % sections.length;
+            showSection(currentSection);
+            progressBar.style.width = '0%';
+        }
+
+        function updateProgressBar() {
+            let progress = 0;
+            const interval = 20; // Update every 20ms for smoother animation
+            const increment = (interval / duration) * 100;
+
+            const progressInterval = setInterval(() => {
+                progress += increment;
+                progressBar.style.width = `${progress}%`;
+
+                if (progress >= 100) {
+                    clearInterval(progressInterval);
+                    nextSection();
+                    updateProgressBar();
+                }
+            }, interval);
+        }
+
+        showSection(0);
+        updateProgressBar();
+    </script>
+</body>
+</html>
